@@ -1,0 +1,47 @@
+<!DOCTYPE>
+<html>
+    <head> 
+        <title>register </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
+    </head>
+    <body >
+        <header>
+            <h1>Welcome to pemwa online store </h1>
+            
+        </header>
+
+        {% for message in get_flashed_messages() %}
+        <div> 
+             <label >{{message}}</label>
+        </div>
+        {% endfor %}
+           
+        <br>
+
+
+        <div class='form'>
+
+        <form class='reg_form' action='/register' method='POST'>
+           <u> <h1 style='font-size:20px;' >REGISTRATION FORM</h1></u>
+            <label for='name'>Name: </label>
+            <input type='text' name='name' placeholder='Enter your name' required> <br></br>
+            <label for='email' > Email: </label> 
+            <input type='email' name='email' placeholder='Enter your email' required><br></br>
+            <label for='phone_number'> Phone number: </label>
+            <input type='tel' name='phone_number' placeholder='123-456-7890 ' required> <br></br>
+            <label for='password' > Password: </label>
+            <input type='password' name='password' placeholder='Create password' required> <br></br>
+            <label for='confirm_password'> Confirm password:</label> 
+            <input type='password' name='Confirm_password' placeholder='Confirm password' required> <br></br> <br></br>
+            <button>Register</button>
+            <input type='reset' value='clear form'>
+
+            <p>Already registered? </p> 
+            <a href='/'>Login here</a>
+        </form>
+        </div>
+    </body>
+
+
+
+</html>

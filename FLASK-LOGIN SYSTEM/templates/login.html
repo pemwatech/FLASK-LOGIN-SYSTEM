@@ -1,0 +1,36 @@
+<!DOCTYPE>
+<html>
+    <head> 
+        <title>login</title>
+        <link rel='stylesheet' href=" {{ url_for('static',filename='styles.css' )}} ">
+    </head>
+    <body>
+        <header>
+            <h1>Welcome to pemwa online store </h1>
+            
+        </header>
+
+        {% for message in get_flashed_messages() %}
+
+        <div>
+            <label>{{message}}</label>
+        </div>
+        {% endfor %}
+
+        <div class='form'> 
+
+            <form class='log_form' action='/' method='POST'>
+
+                <u> <h1 style='font-size:20px;' >LOGIN</h1></u> 
+                <label for='email' > Email: </label> 
+                <input type='email' name='email' placeholder='Enter your email' required><br></br>
+                <label for='password' > Password: </label>
+                <input type='password' name='password' placeholder='Create password' required> <br></br>
+                <button style='margin-left:9px;'>Login</button> 
+                <p>Not yet registered? </p>
+                <a href='/register'>Register here</a>
+            
+            </form>
+        </div>
+    </body>
+</html>

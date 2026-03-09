@@ -1,38 +1,27 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-    <head> 
-        <title>login</title>
-        <link rel='stylesheet' href=" {{ url_for('static',filename='styles.css' )}} ">
-    </head>
-    <body>
-        <header>
-            <h1>Welcome to pemwa login system </h1>
-            
-        </header>
-        {%if messages%}
-        {% for message in get_flashed_messages() %}
-        
-
-        <div>
-            <label>{{message}}</label>
-        </div>
-        {% endfor %}
-        {%endif%}
-
-        <div class='form'> 
-
-            <form class='log_form' action='/login' method='POST'>
-
-                <u> <h1 style='font-size:20px;' >LOGIN</h1></u> 
-                <label for='email' > Email: </label> 
-                <input type='email' name='email' placeholder='Enter your email' required><br></br>
-                <label for='password' > Password: </label>
-                <input type='password' name='password' placeholder='Create password' required> <br></br>
-                <button style='margin-left:9px;'>Login</button> 
-                <p>Not yet registered? </p>
-                <a href='/register'>Register here</a>
-            
-            </form>
-        </div>
-    </body>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flash-messages">
+              {% for msg in messages %}
+                <li>{{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+</body>
 </html>

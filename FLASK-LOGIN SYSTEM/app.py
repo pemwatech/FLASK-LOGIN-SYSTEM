@@ -6,7 +6,7 @@ app=Flask(__name__)
 
 app.route('/health')
 def health():
-return'ok'
+    return'ok'
 
 
 def keep_alive():
@@ -32,8 +32,13 @@ def create_table():
     db.close()
 create_table()
 
+app.route('/)
+def log():
+    return render_template('login.html')
 
-@app.route('/',methods=['POST','GET'])
+
+
+@app.route('/login',methods=['POST','GET'])
 def login():
     if request.method=='POST':
         email=request.form['email']

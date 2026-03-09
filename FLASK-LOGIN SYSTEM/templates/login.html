@@ -9,8 +9,9 @@
             <h1>Welcome to pemwa online store </h1>
             
         </header>
-
+        {%if messages%}
         {% for message in get_flashed_messages() %}
+        {%endif%}
 
         <div>
             <label>{{message}}</label>
@@ -19,7 +20,7 @@
 
         <div class='form'> 
 
-            <form class='log_form' action='/' method='POST'>
+            <form class='log_form' action='/login' method='POST'>
 
                 <u> <h1 style='font-size:20px;' >LOGIN</h1></u> 
                 <label for='email' > Email: </label> 

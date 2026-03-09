@@ -1,45 +1,126 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+
+    background: linear-gradient(135deg,#5c6bc0,#3949ab);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
 }
 
-.container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+/* Center container */
+
+.auth-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+/* Card */
+
+.auth-card{
+
+    background:white;
+
+    width:90%;
+    max-width:400px;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    box-sizing: border-box;
+/* Titles */
+
+h2{
+text-align:center;
+margin-bottom:5px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #5c6bc0;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.subtitle{
+text-align:center;
+color:gray;
+margin-bottom:20px;
 }
 
-button:hover {
-    background-color: #3949ab;
+/* Inputs */
+
+input{
+
+width:100%;
+padding:12px;
+
+margin:8px 0;
+
+border:1px solid #ccc;
+
+border-radius:6px;
+
+font-size:16px;
+
+box-sizing:border-box;
 }
 
-.flash-messages {
-    list-style: none;
-    padding: 0;
-    color: red;
+/* Button */
+
+button{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+background:#5c6bc0;
+
+color:white;
+
+border:none;
+
+border-radius:6px;
+
+font-size:16px;
+
+cursor:pointer;
+}
+
+button:hover{
+background:#3949ab;
+}
+
+/* Link text */
+
+.switch{
+text-align:center;
+margin-top:15px;
+}
+
+.switch a{
+color:#5c6bc0;
+text-decoration:none;
+}
+
+/* Flash messages */
+
+.flash-messages{
+list-style:none;
+padding:0;
+color:red;
+text-align:center;
+}
+
+/* Mobile optimization */
+
+@media(max-width:480px){
+
+.auth-card{
+padding:20px;
+}
+
 }

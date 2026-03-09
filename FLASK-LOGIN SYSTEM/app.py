@@ -32,7 +32,7 @@ def create_table():
     db.close()
 create_table()
 
-app.route('/)
+app.route('/')
 def log():
     return render_template('login.html')
 

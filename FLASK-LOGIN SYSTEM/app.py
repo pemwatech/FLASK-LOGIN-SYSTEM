@@ -13,7 +13,7 @@ def keep_alive():
     while True:
         try:
             # ping only the lightweight /health endpoint
-            requests.get("https://your-app.onrender.com/health")
+            requests.get("https://flask-login-system-mcxt.onrender.com/health")
         except:
             pass
         time.sleep(600)  # ping every 10 minutes

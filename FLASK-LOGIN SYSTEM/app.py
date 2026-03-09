@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import psycopg
+import psycopg2
 import os
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")
 
 # Database connection helper
 def get_db():
-    conn = psycopg.connect(os.environ.get("DATABASE_URL"))
+    conn = psycopg2.connect(os.environ.get("DATABASE_URL"))
     return conn
 
 # Create table if not exists

@@ -3,9 +3,6 @@ from werkzeug.security import generate_password_hash,check_password_hash
 import sqlite3
 
 app=Flask(__name__)
-app.secret_key=your secret_key(any random number)
-
-
 
 app.route('/health')
 def health():
@@ -94,5 +91,5 @@ def register_user():
                 flash(f'{e}')
     return render_template('register.html')
 if __name__=="__main__":
-    app.run(debug=True)   
+    app.run()  
 

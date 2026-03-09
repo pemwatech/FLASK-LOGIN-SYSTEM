@@ -6,6 +6,24 @@ app=Flask(__name__)
 app.secret_key=your secret_key(any random number)
 
 
+
+app.route('/health')
+def health():
+return'ok'
+
+
+def keep_alive():
+    while True:
+        try:
+            # ping only the lightweight /health endpoint
+            requests.get("https://your-app.onrender.com/health")
+        except:
+            pass
+        time.sleep(600)  # ping every 10 minutes
+
+# Start self-ping in a separate thread
+threading.Thread(target=keep_alive, daemon=True).start()
+
 def connect_db():
     db=sqlite3.connect('auth.db')
     db.row_factory=sqlite3.Row

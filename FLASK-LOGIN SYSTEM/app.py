@@ -1,28 +1,39 @@
 from flask import Flask, render_template, request, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
+import psycopg2
+import os
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Needed for flash messages
+app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")
 
-# Health route for pings
+# Database connection helper
+def get_db():
+    conn = psycopg2.connect(os.environ.get("DATABASE_URL"))
+    return conn
+
+# Create table if not exists
+def create_table():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS auth(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100),
+            email VARCHAR(100) UNIQUE,
+            phone_number VARCHAR(20) UNIQUE,
+            password TEXT
+        )
+    """)
+    conn.commit()
+    cur.close()
+    conn.close()
+
+create_table()
+
+# Health route
 @app.route('/health')
 def health():
     return 'OK', 200
-
-# Database helpers
-def connect_db():
-    db = sqlite3.connect('auth.db')
-    db.row_factory = sqlite3.Row
-    return db
-
-def create_table():
-    db = connect_db()
-    db.execute('CREATE TABLE IF NOT EXISTS auth(name,email,phone_number,password)')
-    db.commit()
-    db.close()
-
-create_table()
 
 # Main page
 @app.route('/')
@@ -36,12 +47,15 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        db = connect_db()
-        user = db.execute('SELECT * FROM auth WHERE email=?', (email,)).fetchone()
-        db.close()
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute('SELECT name, password FROM auth WHERE email=%s', (email,))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
 
-        if user and check_password_hash(user['password'], password):
-            return f'Welcome {user["name"]}'
+        if user and check_password_hash(user[1], password):
+            return f'Welcome {user[0]}'
         else:
             flash('Wrong credentials')
 
@@ -62,23 +76,25 @@ def register_user():
             return redirect('/register')
 
         password_hash = generate_password_hash(password1)
+
         try:
-            db = connect_db()
-            user_exists = db.execute(
-                'SELECT * FROM auth WHERE email=? OR phone_number=?',
-                (email, phone_number)
-            ).fetchone()
+            conn = get_db()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM auth WHERE email=%s OR phone_number=%s', (email, phone_number))
+            user_exists = cur.fetchone()
             if user_exists:
                 flash('User already exists')
-                db.close()
+                cur.close()
+                conn.close()
                 return redirect('/register')
 
-            db.execute(
-                'INSERT INTO auth(name,email,phone_number,password) VALUES (?,?,?,?)',
+            cur.execute(
+                'INSERT INTO auth(name,email,phone_number,password) VALUES (%s,%s,%s,%s)',
                 (name,email,phone_number,password_hash)
             )
-            db.commit()
-            db.close()
+            conn.commit()
+            cur.close()
+            conn.close()
             flash('Registration successful')
             return redirect('/login')
         except Exception as e:

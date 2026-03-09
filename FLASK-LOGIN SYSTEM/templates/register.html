@@ -9,12 +9,13 @@
             <h1>Welcome to pemwa online store </h1>
             
         </header>
-
+        {%if messages%}
         {% for message in get_flashed_messages() %}
         <div> 
              <label >{{message}}</label>
         </div>
         {% endfor %}
+        {%endif%}
            
         <br>
 

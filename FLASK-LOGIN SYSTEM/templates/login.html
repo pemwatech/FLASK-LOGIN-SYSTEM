@@ -11,12 +11,13 @@
         </header>
         {%if messages%}
         {% for message in get_flashed_messages() %}
-        {%endif%}
+        
 
         <div>
             <label>{{message}}</label>
         </div>
         {% endfor %}
+        {%endif%}
 
         <div class='form'> 
 

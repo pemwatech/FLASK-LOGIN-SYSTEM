@@ -4,7 +4,7 @@ import sqlite3
 
 app=Flask(__name__)
 
-app.route('/health')
+@app.route('/health')
 def health():
     return'ok'
 
@@ -32,7 +32,7 @@ def create_table():
     db.close()
 create_table()
 
-app.route('/')
+@app.route('/')
 def log():
     return render_template('login.html')
 

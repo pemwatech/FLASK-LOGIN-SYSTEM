@@ -1,48 +1,30 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-    <head> 
-        <title>register </title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
-    </head>
-    <body >
-        <header>
-            <h1>Welcome to pemwa login system</h1>
-            
-        </header>
-        {%if messages%}
-        {% for message in get_flashed_messages() %}
-        <div> 
-             <label >{{message}}</label>
-        </div>
-        {% endfor %}
-        {%endif%}
-           
-        <br>
-
-
-        <div class='form'>
-
-        <form class='reg_form' action='/register' method='POST'>
-           <u> <h1 style='font-size:20px;' >REGISTRATION FORM</h1></u>
-            <label for='name'>Name: </label>
-            <input type='text' name='name' placeholder='Enter your name' required> <br></br>
-            <label for='email' > Email: </label> 
-            <input type='email' name='email' placeholder='Enter your email' required><br></br>
-            <label for='phone_number'> Phone number: </label>
-            <input type='tel' name='phone_number' placeholder='123-456-7890 ' required> <br></br>
-            <label for='password' > Password: </label>
-            <input type='password' name='password' placeholder='Create password' required> <br></br>
-            <label for='confirm_password'> Confirm password:</label> 
-            <input type='password' name='Confirm_password' placeholder='Confirm password' required> <br></br> <br></br>
-            <button>Register</button>
-            <input type='reset' value='clear form'>
-
-            <p>Already registered? </p> 
-            <a href='/'>Login here</a>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flash-messages">
+              {% for msg in messages %}
+                <li>{{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form action="/register" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone_number" placeholder="Phone Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="Confirm_password" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
         </form>
-        </div>
-    </body>
-
-
-
+        <p>Already have an account? <a href="/">Login</a></p>
+    </div>
+</body>
 </html>

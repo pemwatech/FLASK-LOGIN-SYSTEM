@@ -55,7 +55,7 @@ def login():
         conn.close()
 
         if user and check_password_hash(user[1], password):
-            return f'Welcome {user[0]}'
+            return render_template('welcome.html',user=user[0])
         else:
             flash('Wrong credentials')
 

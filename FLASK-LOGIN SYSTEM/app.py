@@ -95,7 +95,7 @@ def register_user():
             conn.commit()
             cur.close()
             conn.close()
-            flash('Registration successful')
+            
             return redirect('/login')
         except Exception as e:
             flash(f'Error: {e}')
